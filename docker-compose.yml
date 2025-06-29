@@ -2,8 +2,6 @@ version: "3.8"
 services:
   backend:
     build: ./be
-    ports:
-      - "4000:4000"
     env_file:
       - ./be/.env
     depends_on:
