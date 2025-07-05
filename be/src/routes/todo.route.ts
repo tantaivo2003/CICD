@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getTodos, getTodosByUserId, createTodo, updateTodo, toggleTodoStatus, deleteTodo, getTodoById, searchTodos  } from "../controllers/todo.controller"
+import { getTodos, getTodosByUserId, createTodo, updateTodo, toggleTodoStatus, deleteTodo, getTodoById, searchTodos} from "../controllers/todo.controller"
 import { authenticateToken } from "../middlewares/auth.middleware"
 const router = Router()
 /**
@@ -61,6 +61,11 @@ router.get("/user/:id", getTodosByUserId)
     *                 type: string
     *               user_id:
     *                 type: integer
+    *               start_time:
+    *                 type: string
+    *                 format: date-time
+    *                 example: "2025-07-05T09:00:00.000Z"
+    * 
     *     responses:
     *       201:
     *         description: Todo created successfully

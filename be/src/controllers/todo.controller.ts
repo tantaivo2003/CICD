@@ -46,12 +46,11 @@ export const searchTodos = async (req: Request, res: Response) => {
 }
 
 export const createTodo = async (req: Request, res: Response) => {
-  const { title, description, user_id } = req.body
+  const { title, description, user_id, start_time, end_time } = req.body;
 
   if (!title || !user_id) {
-    
-    res.status(400).json({ message: "Title and user_id are required" })
-    return
+    res.status(400).json({ message: "Title and user_id are required" });
+    return;
   }
 
   try {
@@ -59,54 +58,60 @@ export const createTodo = async (req: Request, res: Response) => {
       title,
       description,
       user_id,
-    })
+      start_time: start_time ? new Date(start_time) : null,
+      end_time: end_time ? new Date(end_time) : null,
+    });
 
-    res.status(201).json(todo)
+    res.status(201).json(todo);
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err })
+    res.status(500).json({ message: "Server error", error: err });
   }
-}
+};
+
 
 export const updateTodo = async (req: Request, res: Response) => {
-  const { id } = req.params
-  const { title, description, date } = req.body
+  const { id } = req.params;
+  const { title, description, start_time, end_time } = req.body;
 
   try {
-    const todo = await TodoModel.findByPk(id)
-    if (!todo){ 
-      res.status(404).json({ message: "Todo not found" })
-      return 
-    } 
-    todo.title = title ?? todo.title
-    todo.description = description ?? todo.description
-    todo.date = date ?? todo.date
+    const todo = await TodoModel.findByPk(id);
+    if (!todo) {
+      res.status(404).json({ message: "Todo not found" });
+      return;
+    }
 
-    await todo.save()
-    res.json(todo)
+    todo.title = title ?? todo.title;
+    todo.description = description ?? todo.description;
+    todo.start_time = start_time ? new Date(start_time) : todo.start_time;
+    todo.end_time = end_time ? new Date(end_time) : todo.end_time;
+
+    await todo.save();
+    res.json(todo);
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err })
+    res.status(500).json({ message: "Server error", error: err });
   }
-}
+};
+
 
 export const toggleTodoStatus = async (req: Request, res: Response) => {
-  const { id } = req.params
+  const { id } = req.params;
 
   try {
-    const todo = await TodoModel.findByPk(id)
+    const todo = await TodoModel.findByPk(id);
     if (!todo) {
-      res.status(404).json({ message: "Todo not found" })
-      return
-  }
+      res.status(404).json({ message: "Todo not found" });
+      return;
+    }
 
-    todo.completed = !todo.completed
-    todo.date = new Date()
-    await todo.save()
+    todo.completed = !todo.completed;
+    todo.end_time = todo.completed ? new Date() : null;
 
-    res.json(todo)
+    await todo.save();
+    res.json(todo);
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err })
+    res.status(500).json({ message: "Server error", error: err });
   }
-}
+};
 
 export const deleteTodo = async (req: Request, res: Response) => {
   const { id } = req.params

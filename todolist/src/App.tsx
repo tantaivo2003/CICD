@@ -6,7 +6,12 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import TodoPage from "./pages/TodoPage"; // Trang chính sau khi login
+import MainLayout from "./layouts/MainLayout";
+import DashboardPage from "./pages/DashboardPage";
+import TodoCalendarPage from "./pages/TodoCalendarPage";
+import VocabularyPage from "./pages/VocabularyPage";
+import TopicDetailPage from "./pages/TopicDetailPage";
+import DailyLearningPage from "./pages/DailyLearningPage";
 
 function App() {
   const isAuthenticated = !!localStorage.getItem("token");
@@ -14,12 +19,33 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={isAuthenticated ? <TodoPage /> : <Navigate to="/login" />}
-        />
+        {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* Protected routes */}
+        <Route
+          path="/"
+          element={isAuthenticated ? <MainLayout /> : <Navigate to="/login" />}
+        >
+          <Route index element={<DashboardPage />} />
+          <Route path="calendar" element={<TodoCalendarPage />} />
+          <Route path="vocabulary" element={<VocabularyPage />} />
+          <Route
+            path="vocabulary/topic/:topicId"
+            element={<TopicDetailPage />}
+          />
+          <Route
+            path="vocabulary/daily/:date"
+            element={<DailyLearningPage />}
+          />
+        </Route>
+
+        {/* Nếu path không khớp */}
+        <Route
+          path="*"
+          element={<Navigate to={isAuthenticated ? "/" : "/login"} />}
+        />
       </Routes>
     </Router>
   );

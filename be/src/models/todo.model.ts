@@ -15,8 +15,11 @@ export class TodoModel extends Model<
   declare title: string
   declare description: string | null
   declare completed: CreationOptional<boolean>
-  declare date: Date | null
+  declare start_time: Date | null     
+  declare end_time: Date | null       
   declare user_id: number
+  declare created_at: CreationOptional<Date>
+  declare updated_at: CreationOptional<Date>
 }
 
 TodoModel.init(
@@ -38,10 +41,25 @@ TodoModel.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    date: DataTypes.DATE,
+    start_time: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    end_time: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
   },
   {

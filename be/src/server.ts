@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 4000
 async function startServer() {
   try {
     await sequelize.authenticate()
-    await sequelize.sync() // không tạo lại nếu đã có, hoặc sync({ alter: true })
+    await sequelize.sync({ alter: true });
 
     app.listen(PORT, () => {
       console.log(`✅ Server running at http://localhost:${PORT}`)

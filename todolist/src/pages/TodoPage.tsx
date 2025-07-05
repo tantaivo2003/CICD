@@ -1,6 +1,6 @@
 import background from "../assets/background.jpg";
-import TodoInput from "../components/TodoInput";
-import TodoList from "../components/TodoList";
+import TodoInput from "../components/todos/TodoInput";
+import TodoList from "../components/todos/TodoList";
 import { useTodos } from "../hooks/useTodos";
 import { useAuth } from "../hooks/useAuth";
 
