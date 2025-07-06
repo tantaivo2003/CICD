@@ -1,12 +1,14 @@
 // components/CalendarGrid.tsx
 import dayjs from "dayjs";
 import CalendarCell from "./CalendarCell";
-
+import type { Todo } from "../../types/todo";
 interface Props {
   currentMonth: dayjs.Dayjs;
+  todos: Todo[];
+  onAddTodo: (title: string, desc: string, date: string) => void;
 }
 
-const CalendarGrid = ({ currentMonth }: Props) => {
+const CalendarGrid = ({ currentMonth, todos, onAddTodo }: Props) => {
   const startOfMonth = currentMonth.startOf("month");
   const startDate = startOfMonth.startOf("week"); // bắt đầu từ Chủ nhật
 
@@ -30,6 +32,10 @@ const CalendarGrid = ({ currentMonth }: Props) => {
             key={day.toString()}
             date={day}
             currentMonth={currentMonth}
+            todos={todos.filter((todo) =>
+              dayjs(todo.start_time).isSame(day, "day")
+            )}
+            onAddTodo={onAddTodo}
           />
         ))}
       </div>

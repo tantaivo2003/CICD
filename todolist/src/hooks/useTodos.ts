@@ -29,14 +29,24 @@ export function useTodos(userId: number) {
   }, [userId]);
 
   // ✅ Thêm todo
-  const addTodo = async (title: string, description: string) => {
+  const addTodo = async (
+    title: string,
+    description: string,
+    start_time: string
+  ) => {
     try {
-      const newTodo = await createTodo({ title, description, user_id: userId });
+      const newTodo = await createTodo({
+        title,
+        description,
+        user_id: userId,
+        start_time, // ✅ Thêm trường này
+      });
       setTodos((prev) => [newTodo, ...prev]);
     } catch (err: any) {
       setError(err.message);
     }
   };
+
 
   // ✅ Toggle trạng thái
   const toggleTodo = async (id: number) => {

@@ -7,7 +7,6 @@ import { FiMenu } from "react-icons/fi";
 const Sidebar = () => {
   const { pathname } = useLocation();
   const userName = localStorage.getItem("userName") || "User";
-  const userId = Number(localStorage.getItem("userId"));
   const { logout } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);

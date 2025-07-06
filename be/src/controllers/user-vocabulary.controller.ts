@@ -44,7 +44,8 @@ export const addWordToUser = async (req: Request, res: Response) => {
   const { user_id, vocabulary_id, added_date } = req.body
 
   if (!user_id || !vocabulary_id || !added_date) {
-    return res.status(400).json({ message: "Missing fields" })
+    res.status(400).json({ message: "Missing fields" });
+    return;
   }
 
   // 1. Kiểm tra từ vựng có tồn tại không
@@ -71,7 +72,7 @@ export const addWordToUser = async (req: Request, res: Response) => {
     is_learned: false, // nên set rõ
   })
 
-  return res.status(201).json(entry)
+  res.status(201).json(entry)
 }
 
 // Đánh dấu đã học

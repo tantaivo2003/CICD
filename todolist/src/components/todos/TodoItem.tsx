@@ -1,4 +1,4 @@
-import type { Todo } from "../types/todo";
+import type { Todo } from "../../types/todo";
 
 export default function TodoItem({
   todo,
