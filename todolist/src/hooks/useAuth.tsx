@@ -17,6 +17,7 @@ export function useAuth() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.user.id);
       localStorage.setItem("userName", data.user.name);
+      setIsAuthenticated(true);
       navigate("/");
     } catch (err: any) {
       setError(err.message);
@@ -42,10 +43,13 @@ export function useAuth() {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("userName");
+    setIsAuthenticated(false);
     navigate("/login");
   };
 
-  const isAuthenticated = !!localStorage.getItem("token");
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    !!localStorage.getItem("token")
+  );
 
   return {
     login,

@@ -1,6 +1,6 @@
 // components/Sidebar.tsx
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 
