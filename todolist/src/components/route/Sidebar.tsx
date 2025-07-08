@@ -13,8 +13,8 @@ const Sidebar = () => {
 
   const navItems = [
     { label: "Dashboard", path: "/" },
-    { label: "Calendar View", path: "/calendar" },
-    { label: "Vocabulary", path: "/vocabulary" },
+    { label: "Calendar", path: "/calendar" },
+    { label: "Topic", path: "/topic" },
   ];
 
   return (

@@ -6,9 +6,12 @@ services:
       - ./be/.env
     depends_on:
       - db
-
+    ports:
+      - "4000:4000"
   frontend:
     build: ./todolist
+    env_file:
+      - ./todolist/.env
     ports:
       - "3000:80"
 

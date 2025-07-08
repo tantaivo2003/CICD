@@ -1,5 +1,4 @@
 import background from "../assets/background.jpg";
-import TodoInput from "../components/todos/TodoInput";
 import TodoList from "../components/todos/TodoList";
 import { useTodos } from "../hooks/useTodos";
 import { useAuth } from "../hooks/useAuth";
@@ -7,7 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 export default function TodoPage() {
   const userName = localStorage.getItem("userName") || "User";
   const userId = Number(localStorage.getItem("userId"));
-  const { todos, addTodo, toggleTodo, deleteTodo } = useTodos(userId);
+  const { todos, toggleTodo, deleteTodo } = useTodos(userId);
   const { logout } = useAuth();
 
   return (
@@ -26,7 +25,6 @@ export default function TodoPage() {
           </button>
         </div>
 
-        <TodoInput onAdd={addTodo} />
         <TodoList todos={todos} onToggle={toggleTodo} onDelete={deleteTodo} />
       </div>
     </div>

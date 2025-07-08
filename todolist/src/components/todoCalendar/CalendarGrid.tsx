@@ -2,13 +2,22 @@
 import dayjs from "dayjs";
 import CalendarCell from "./CalendarCell";
 import type { Todo } from "../../types/todo";
+
 interface Props {
   currentMonth: dayjs.Dayjs;
   todos: Todo[];
-  onAddTodo: (title: string, desc: string, date: string) => void;
+  addTodo: (title: string, description: string, start_time: string) => void;
+  toggleTodo: (id: number) => void;
+  deleteTodo: (id: number) => void;
 }
 
-const CalendarGrid = ({ currentMonth, todos, onAddTodo }: Props) => {
+const CalendarGrid = ({
+  currentMonth,
+  todos,
+  addTodo,
+  toggleTodo,
+  deleteTodo,
+}: Props) => {
   const startOfMonth = currentMonth.startOf("month");
   const startDate = startOfMonth.startOf("week"); // bắt đầu từ Chủ nhật
 
@@ -35,7 +44,9 @@ const CalendarGrid = ({ currentMonth, todos, onAddTodo }: Props) => {
             todos={todos.filter((todo) =>
               dayjs(todo.start_time).isSame(day, "day")
             )}
-            onAddTodo={onAddTodo}
+            addTodo={addTodo}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
           />
         ))}
       </div>

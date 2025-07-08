@@ -15,7 +15,7 @@ export async function getTodosByUserId(userId: number) {
 }
 // ✅ todoApi.ts
 export const createTodo = async (todo: CreateTodoInput) => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/todos`, {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/todos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -57,6 +57,6 @@ export async function deleteTodo(id: number) {
     throw new Error(errorData.message || "Failed to delete todo");
   }
 
-  return true; 
+  return id; // Trả về ID của todo đã xóa
 }
 

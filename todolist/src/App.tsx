@@ -12,9 +12,10 @@ import TodoCalendarPage from "./pages/TodoCalendarPage";
 import VocabularyPage from "./pages/VocabularyPage";
 import TopicDetailPage from "./pages/TopicDetailPage";
 import DailyLearningPage from "./pages/DailyLearningPage";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
-  const isAuthenticated = !!localStorage.getItem("token");
+  const { isAuthenticated } = useAuth();
 
   return (
     <Router>
@@ -31,10 +32,7 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path="calendar" element={<TodoCalendarPage />} />
           <Route path="vocabulary" element={<VocabularyPage />} />
-          <Route
-            path="vocabulary/topic/:topicId"
-            element={<TopicDetailPage />}
-          />
+          <Route path="topic" element={<TopicDetailPage />} />
           <Route
             path="vocabulary/daily/:date"
             element={<DailyLearningPage />}

@@ -13,7 +13,6 @@ export function useAuth() {
     setError(null);
     try {
       const data = await loginApi(email, password);
-      console.log("Login successful", data);
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.user.id);
